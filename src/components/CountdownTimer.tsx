@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface CountdownTimerProps {
   targetDate: string;
@@ -7,6 +7,7 @@ interface CountdownTimerProps {
 
 const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const ref = useScrollReveal<HTMLDivElement>();
 
   useEffect(() => {
     const calc = () => {
@@ -32,31 +33,18 @@ const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
   ];
 
   return (
-    <div className="flex justify-center gap-4 md:gap-8">
-      {units.map((u, i) => (
-        <motion.div
-          key={u.label}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-          className="flex flex-col items-center"
-        >
+    <div ref={ref} data-reveal="fade-up" className="flex justify-center gap-4 md:gap-8">
+      {units.map((u) => (
+        <div key={u.label} className="flex flex-col items-center">
           <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-background border border-border shadow-sm flex items-center justify-center mb-2">
-            <motion.span
-              key={u.value}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="font-display text-2xl md:text-3xl font-semibold text-foreground"
-            >
+            <span className="countdown-digit font-display text-2xl md:text-3xl font-semibold text-foreground">
               {String(u.value).padStart(2, "0")}
-            </motion.span>
+            </span>
           </div>
           <span className="font-body text-xs text-muted-foreground tracking-wider uppercase">
             {u.label}
           </span>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

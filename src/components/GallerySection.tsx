@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { useScrollRevealContainer } from "@/hooks/useScrollReveal";
 import weddingPhoto from "@/assets/wedding-photo.jpg";
 
 const images = [
@@ -9,24 +9,24 @@ const images = [
 ];
 
 const GallerySection = () => {
+  const ref = useScrollRevealContainer();
+
   return (
-    <div className="grid grid-cols-2 gap-3 md:gap-4">
+    <div ref={ref} className="grid grid-cols-2 gap-3 md:gap-4">
       {images.map((img, i) => (
-        <motion.div
+        <div
           key={i}
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.7, delay: i * 0.12 }}
-          className="relative overflow-hidden rounded-xl aspect-[3/4] group cursor-pointer"
+          data-reveal="scale"
+          data-delay={String(i * 0.12)}
+          className="relative overflow-hidden rounded-xl aspect-[3/4] gallery-item cursor-pointer"
         >
           <img
             src={img.src}
             alt={img.alt}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-foreground/10 group-hover:bg-foreground/5 transition-colors duration-500" />
-        </motion.div>
+          <div className="gallery-overlay absolute inset-0 bg-foreground/10" />
+        </div>
       ))}
     </div>
   );

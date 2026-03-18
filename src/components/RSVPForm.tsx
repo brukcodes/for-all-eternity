@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -8,6 +8,8 @@ const RSVPForm = () => {
   const [name, setName] = useState("");
   const [attendance, setAttendance] = useState<"yes" | "no" | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const ref = useScrollReveal<HTMLFormElement>();
+  const successRef = useScrollReveal<HTMLDivElement>();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,11 +23,7 @@ const RSVPForm = () => {
 
   if (submitted) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-card rounded-xl p-10 border border-border text-center"
-      >
+      <div ref={successRef} data-reveal="scale" className="bg-card rounded-xl p-10 border border-border text-center">
         <div className="text-4xl mb-4">🎉</div>
         <h3 className="font-display text-2xl font-semibold text-foreground mb-2">
           Thank You, {name}!
@@ -35,16 +33,14 @@ const RSVPForm = () => {
             ? "We can't wait to celebrate with you!"
             : "We'll miss you, but thank you for letting us know."}
         </p>
-      </motion.div>
+      </div>
     );
   }
 
   return (
-    <motion.form
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: 0.2 }}
+    <form
+      ref={ref}
+      data-reveal="fade-up"
       onSubmit={handleSubmit}
       className="bg-card rounded-xl p-8 md:p-10 border border-border space-y-6 text-left"
     >
@@ -68,10 +64,10 @@ const RSVPForm = () => {
           <button
             type="button"
             onClick={() => setAttendance("yes")}
-            className={`flex-1 py-3 rounded-lg border font-body text-sm tracking-wide transition-all duration-300 ${
+            className={`flex-1 py-3 rounded-lg border font-body text-sm tracking-wide rsvp-option ${
               attendance === "yes"
-                ? "bg-primary text-primary-foreground border-primary shadow-md"
-                : "bg-background text-muted-foreground border-border hover:border-primary/50"
+                ? "selected"
+                : "bg-background text-muted-foreground border-border"
             }`}
           >
             Joyfully Accept
@@ -79,10 +75,10 @@ const RSVPForm = () => {
           <button
             type="button"
             onClick={() => setAttendance("no")}
-            className={`flex-1 py-3 rounded-lg border font-body text-sm tracking-wide transition-all duration-300 ${
+            className={`flex-1 py-3 rounded-lg border font-body text-sm tracking-wide rsvp-option ${
               attendance === "no"
-                ? "bg-primary text-primary-foreground border-primary shadow-md"
-                : "bg-background text-muted-foreground border-border hover:border-primary/50"
+                ? "selected"
+                : "bg-background text-muted-foreground border-border"
             }`}
           >
             Respectfully Decline
@@ -96,7 +92,7 @@ const RSVPForm = () => {
       >
         Send RSVP
       </Button>
-    </motion.form>
+    </form>
   );
 };
 

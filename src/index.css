@@ -8,39 +8,28 @@
   :root {
     --background: 30 20% 97%;
     --foreground: 0 0% 17%;
-
     --card: 30 15% 95%;
     --card-foreground: 0 0% 17%;
-
     --popover: 30 20% 97%;
     --popover-foreground: 0 0% 17%;
-
     --primary: 43 65% 52%;
     --primary-foreground: 30 20% 97%;
-
     --secondary: 30 12% 90%;
     --secondary-foreground: 0 0% 17%;
-
     --muted: 30 10% 92%;
     --muted-foreground: 0 0% 45%;
-
     --accent: 43 65% 52%;
     --accent-foreground: 30 20% 97%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 30 15% 85%;
     --input: 30 15% 85%;
     --ring: 43 65% 52%;
-
     --radius: 0.5rem;
 
     --wedding-gold: 43 65% 52%;
     --wedding-ivory: 30 20% 97%;
     --wedding-charcoal: 0 0% 17%;
-    --wedding-blush: 20 30% 92%;
-    --wedding-sage: 140 12% 72%;
 
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Josefin Sans', sans-serif;
@@ -51,41 +40,76 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
-
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-family: var(--font-display);
-  }
-  .font-body {
-    font-family: var(--font-body);
-  }
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
 }
 
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ============================
+   SCROLL REVEAL SYSTEM
+   ============================ */
+
+/* Base state for all reveal elements */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              letter-spacing 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes spacingReveal {
-  from { letter-spacing: 0.6em; opacity: 0; }
-  to { letter-spacing: 0.25em; opacity: 1; }
+/* Fade up (default) */
+[data-reveal="fade-up"] {
+  transform: translateY(28px);
 }
+[data-reveal="fade-up"].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade in (no movement) */
+[data-reveal="fade"] {
+  transform: none;
+}
+[data-reveal="fade"].visible {
+  opacity: 1;
+}
+
+/* Scale up */
+[data-reveal="scale"] {
+  transform: scale(0.92);
+}
+[data-reveal="scale"].visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Letter spacing reveal */
+[data-reveal="spacing"] {
+  letter-spacing: 0.6em;
+}
+[data-reveal="spacing"].visible {
+  opacity: 1;
+  letter-spacing: 0.25em;
+}
+
+/* ============================
+   KEYFRAME ANIMATIONS
+   ============================ */
 
 @keyframes slowZoom {
   from { transform: scale(1); }
-  to { transform: scale(1.06); }
+  to { transform: scale(1.08); }
 }
 
 @keyframes shimmer {
@@ -98,22 +122,47 @@
   50% { transform: translateY(-8px); }
 }
 
-@keyframes pulse-soft {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+@keyframes scrollHint {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(10px); opacity: 1; }
 }
 
-@keyframes scrollHint {
-  0%, 100% { transform: translateY(0); opacity: 0.6; }
-  50% { transform: translateY(8px); opacity: 1; }
+@keyframes particleRise {
+  0% { opacity: 0; transform: translateY(0); }
+  20% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-110vh); }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes heroNameReveal {
+  from { opacity: 0; letter-spacing: 0.6em; }
+  to { opacity: 1; letter-spacing: 0.25em; }
+}
+
+@keyframes heroTagReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ampersandPop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ============================
+   UTILITY CLASSES
+   ============================ */
+
+.animate-slow-zoom {
+  animation: slowZoom 20s ease-out forwards;
 }
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
-}
-
-.animate-slow-zoom {
-  animation: slowZoom 20s ease-out forwards;
 }
 
 .animate-scroll-hint {
@@ -134,4 +183,78 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer 3s linear infinite;
+}
+
+/* Hero specific animations (CSS only, timed with animation-delay) */
+.hero-tag {
+  opacity: 0;
+  animation: heroTagReveal 1.2s ease-out 0.3s forwards;
+}
+
+.hero-name-1 {
+  opacity: 0;
+  animation: heroNameReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+}
+
+.hero-ampersand {
+  opacity: 0;
+  animation: ampersandPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.0s forwards;
+}
+
+.hero-name-2 {
+  opacity: 0;
+  animation: heroNameReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+}
+
+.hero-date {
+  opacity: 0;
+  animation: heroTagReveal 1s ease-out 1.6s forwards;
+}
+
+.hero-scroll {
+  opacity: 0;
+  animation: heroFadeIn 1s ease-out 2.2s forwards;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  bottom: -5%;
+  border-radius: 50%;
+  background: hsl(var(--primary) / 0.2);
+  animation: particleRise linear infinite;
+  will-change: transform, opacity;
+}
+
+/* Gallery hover */
+.gallery-item img {
+  transition: transform 0.7s ease-out;
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+.gallery-item .gallery-overlay {
+  transition: background-color 0.5s ease;
+}
+.gallery-item:hover .gallery-overlay {
+  background-color: hsl(var(--foreground) / 0.05);
+}
+
+/* RSVP button states */
+.rsvp-option {
+  transition: all 0.3s ease;
+}
+.rsvp-option:hover {
+  border-color: hsl(var(--primary) / 0.5);
+}
+.rsvp-option.selected {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+  box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+}
+
+/* Countdown digit flip */
+.countdown-digit {
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
