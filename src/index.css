@@ -6,42 +6,41 @@
 
 @layer base {
   :root {
-    --background: 40 33% 96%;
-    --foreground: 30 10% 25%;
+    --background: 30 20% 97%;
+    --foreground: 0 0% 17%;
 
-    --card: 40 30% 94%;
-    --card-foreground: 30 10% 25%;
+    --card: 30 15% 95%;
+    --card-foreground: 0 0% 17%;
 
-    --popover: 40 33% 96%;
-    --popover-foreground: 30 10% 25%;
+    --popover: 30 20% 97%;
+    --popover-foreground: 0 0% 17%;
 
-    --primary: 36 60% 48%;
-    --primary-foreground: 40 33% 96%;
+    --primary: 43 65% 52%;
+    --primary-foreground: 30 20% 97%;
 
-    --secondary: 30 20% 88%;
-    --secondary-foreground: 30 10% 25%;
+    --secondary: 30 12% 90%;
+    --secondary-foreground: 0 0% 17%;
 
-    --muted: 30 15% 90%;
-    --muted-foreground: 30 8% 55%;
+    --muted: 30 10% 92%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 36 60% 48%;
-    --accent-foreground: 40 33% 96%;
+    --accent: 43 65% 52%;
+    --accent-foreground: 30 20% 97%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 36 30% 82%;
-    --input: 36 30% 82%;
-    --ring: 36 60% 48%;
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 43 65% 52%;
 
     --radius: 0.5rem;
 
-    --wedding-gold: 36 60% 48%;
-    --wedding-cream: 40 33% 96%;
-    --wedding-blush: 20 40% 90%;
-    --wedding-sage: 140 15% 70%;
-    --wedding-text: 30 10% 25%;
-    --wedding-text-light: 30 8% 55%;
+    --wedding-gold: 43 65% 52%;
+    --wedding-ivory: 30 20% 97%;
+    --wedding-charcoal: 0 0% 17%;
+    --wedding-blush: 20 30% 92%;
+    --wedding-sage: 140 12% 72%;
 
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Josefin Sans', sans-serif;
@@ -56,6 +55,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    scroll-behavior: smooth;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -70,29 +70,22 @@
   .font-body {
     font-family: var(--font-body);
   }
-  .text-gold {
-    color: hsl(var(--wedding-gold));
-  }
-  .text-wedding-light {
-    color: hsl(var(--wedding-text-light));
-  }
-  .bg-cream {
-    background-color: hsl(var(--wedding-cream));
-  }
-  .bg-blush {
-    background-color: hsl(var(--wedding-blush));
-  }
 }
 
-/* Sparkle animation */
-@keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1); }
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+@keyframes spacingReveal {
+  from { letter-spacing: 0.6em; opacity: 0; }
+  to { letter-spacing: 0.25em; opacity: 1; }
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
 }
 
 @keyframes shimmer {
@@ -100,17 +93,40 @@
   100% { background-position: 200% center; }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes scrollHint {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-slow-zoom {
+  animation: slowZoom 20s ease-out forwards;
+}
+
+.animate-scroll-hint {
+  animation: scrollHint 2s ease-in-out infinite;
 }
 
 .shimmer-text {
   background: linear-gradient(
     90deg,
     hsl(var(--wedding-gold)) 0%,
-    hsl(36 70% 65%) 25%,
+    hsl(43 75% 68%) 25%,
     hsl(var(--wedding-gold)) 50%,
-    hsl(36 70% 65%) 75%,
+    hsl(43 75% 68%) 75%,
     hsl(var(--wedding-gold)) 100%
   );
   background-size: 200% auto;
