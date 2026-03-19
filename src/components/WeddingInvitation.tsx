@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useScrollRevealContainer } from "@/hooks/useScrollReveal";
 import weddingPhoto from "@/assets/wedding-photo.jpg";
 import divider from "@/assets/divider.png";
@@ -5,6 +6,7 @@ import FloatingParticles from "./FloatingParticles";
 import CountdownTimer from "./CountdownTimer";
 import RSVPForm from "./RSVPForm";
 import GallerySection from "./GallerySection";
+import EnvelopeIntro from "./EnvelopeIntro";
 
 const SectionDivider = ({ delay = "0" }: { delay?: string }) => (
   <div data-reveal="fade" data-delay={delay} className="flex items-center justify-center gap-4 my-14 md:my-20">
@@ -15,6 +17,7 @@ const SectionDivider = ({ delay = "0" }: { delay?: string }) => (
 );
 
 const WeddingInvitation = () => {
+  const [showInvitation, setShowInvitation] = useState(false);
   const invitationRef = useScrollRevealContainer();
   const countdownRef = useScrollRevealContainer();
   const detailsRef = useScrollRevealContainer();
@@ -23,7 +26,16 @@ const WeddingInvitation = () => {
   const footerRef = useScrollRevealContainer();
 
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
+    <>
+      {!showInvitation && (
+        <EnvelopeIntro onOpened={() => setShowInvitation(true)} />
+      )}
+
+      <div
+        className={`min-h-screen bg-background relative overflow-x-hidden transition-opacity duration-700 ${
+          showInvitation ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
       <FloatingParticles />
 
       {/* ===== HERO (CSS animation only) ===== */}
@@ -197,7 +209,8 @@ const WeddingInvitation = () => {
           </p>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 };
 
