@@ -31,6 +31,12 @@
     --wedding-ivory: 30 20% 97%;
     --wedding-charcoal: 0 0% 17%;
 
+    --charcoal: 0 0% 17%;
+    --burgundy: 345 45% 30%;
+    --burgundy-dark: 345 45% 25%;
+    --ivory: 30 20% 97%;
+    --gold: 43 65% 52%;
+
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Josefin Sans', sans-serif;
   }
