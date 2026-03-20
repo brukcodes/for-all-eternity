@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Ever After Wedding Invitation
 
-TODO: Document your project here
+A beautiful, interactive wedding invitation website for Abriham and Hana.
