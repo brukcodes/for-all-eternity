@@ -111,7 +111,7 @@ const WeddingInvitation = () => {
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               className="font-display text-4xl font-semibold shimmer-text"
             >
-              ABRIHAM
+              ABRAHAM
             </motion.h1>
 
             <motion.h1
@@ -137,7 +137,7 @@ const WeddingInvitation = () => {
               }}
               className="font-display text-4xl font-semibold shimmer-text"
             >
-              HANA
+              HANNA
             </motion.h1>
           </motion.div>
           {/* Bottom smooth fade */}
@@ -172,7 +172,7 @@ const WeddingInvitation = () => {
             >
               With immense joy and heartfelt excitement,
               <br />
-              we invite you to celebrate a beautiful union
+              you are invited to celebrate a beautiful union
               <br />
               and a new beginning for
             </p>
@@ -182,7 +182,7 @@ const WeddingInvitation = () => {
               data-delay="0.3"
               className="font-display text-4xl md:text-5xl font-semibold shimmer-text mb-4"
             >
-              ABRIHAM <h2>&</h2>HANA
+              ABRAHAM <h2>&</h2>HANNA
             </h2>
 
             <p
@@ -227,7 +227,7 @@ const WeddingInvitation = () => {
         >
           <div className="max-w-lg mx-auto text-center">
             <p className="font-display text-2xl font-semibold shimmer-text">
-              Abriham & Hana
+              Abraham & Hanna
             </p>
             <p
               data-reveal="fade-up"
@@ -235,6 +235,13 @@ const WeddingInvitation = () => {
               className="font-body text-xs text-muted-foreground mt-4 tracking-wider"
             >
               April 26, 2026
+            </p>
+            <p
+              data-reveal="fade-up"
+              data-delay="0.35"
+              className="font-body text-xs text-muted-foreground mt-4 tracking-wider"
+            >
+              <b>📍 Ayertena, Bahir Dar</b>
             </p>
           </div>
         </footer>

@@ -49,7 +49,7 @@ const EnvelopeIntro = ({ onOpened }: EnvelopeIntroProps) => {
           We're Getting Married
         </p>
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-charcoal italic">
-          Abriham <span className="text-gold">&</span> Hana
+          Abraham <span className="text-gold">&</span> Hanna
         </h1>
       </div>
 
@@ -142,7 +142,7 @@ const EnvelopeIntro = ({ onOpened }: EnvelopeIntroProps) => {
             <div className="flex flex-col items-center justify-center h-full">
               <p className="text-xs tracking-[0.3em] text-charcoal/40 uppercase"></p>
               <p className="text-xl font-semibold text-charcoal/80 mt-2 -tracking-[-0.4em]]">
-                04 · 26 · 2026
+                26 · 04 · 2026
               </p>
               <p className="text-xs tracking-[0.25em] text-charcoal/50 mt-2"></p>
             </div>
