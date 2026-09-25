@@ -241,7 +241,7 @@ const WeddingInvitation = () => {
               data-delay="0.35"
               className="font-body text-xs text-muted-foreground mt-4 tracking-wider"
             >
-              <b>📍 Ayertena, Bahir Dar</b>
+              <b>📍 Sheraton Addis, Addis Ababa</b>
             </p>
           </div>
         </footer>
